@@ -23,25 +23,22 @@ export class HomePage {
      "horario":""
    }
   }
+  
   remove(tarefa) {
+    // Remover o item selecionado da lista
+    var i = this.tarefas.indexOf(tarefa);
+    this.tarefas.splice(i, 1);
+  }
+  edit(tarefa){    
+    // Atualizar formulário com os dados da tarefa cliclada
+    this.nova_tarefa = tarefa
+
+    // Remover o item selecionado da lista
     var i = this.tarefas.indexOf(tarefa);
     this.tarefas.splice(i, 1);
   }
 
-  tarefas = [
-    {
-      "descricao":"Ir para o IFPI",
-      "horario":"18:00"
-    },
-    {
-      "descricao":"Jogar bola",
-      "horario":"13:00"
-    },
-    {
-      "descricao":"Comer carneiro",
-      "horario":"22:00"
-    },
-  ];
+  tarefas = [];
  
  
 
