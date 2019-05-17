@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController,AlertController } from '@ionic/angular';
 
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-listacompras',
@@ -10,13 +12,24 @@ import { ToastController,AlertController } from '@ionic/angular';
 export class ListacomprasPage {
 
   compras = [];
-  nova_compra = this.criar_nova_compra();
-  constructor(public toastController: ToastController,public alertController: AlertController){
 
+ COMPRAS_KEY = 'compras';
+
+  nova_compra = this.criar_nova_compra();
+  constructor(public toastController: ToastController,public alertController: AlertController, 
+    private storage: Storage){ 
+      this.storage.get(this.COMPRAS_KEY).then((data) => 
+      {
+        if (data) {
+        this.compras = data; 
+      } 
+      });
   }
 
   async add() {
     this.compras.push(this.nova_compra);
+    this.storage.set(this.COMPRAS_KEY, this.compras);
+
     this.nova_compra = this.criar_nova_compra();
 
     const toast = await this.toastController.create({
@@ -67,6 +80,8 @@ export class ListacomprasPage {
             // Remover o item selecionado da lista
             var i = this.compras.indexOf(compra);
             this.compras.splice(i, 1);
+            this.storage.set(this.COMPRAS_KEY, this.compras);
+
           }
         }
       ]
