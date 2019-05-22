@@ -60,7 +60,7 @@ export class ListatarefaPage {
         {
           text: 'Cancel',
           role: 'cancel',
-          cssClass: 'secondary',
+          cssClass: 'primary',
           handler: async (blah) => {
           }
         }, {
