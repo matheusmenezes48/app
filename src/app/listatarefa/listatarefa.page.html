@@ -1,33 +1,21 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-    <ion-button href='/home'>inicio</ion-button>
+      <ion-button href='/home'>inicio</ion-button>
     </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)='exibir_modal()'>
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title>Tarefas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-        Nova Tarefa
-      </ion-card-title>
-    </ion-card-header>
-
-    <ion-item>
-      <ion-label>Descrição: </ion-label>
-      <ion-input [(ngModel)]="nova_tarefa.descricao"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Horario: </ion-label>
-      <ion-input [(ngModel)]="nova_tarefa.horario"></ion-input>
-    </ion-item>
-    <ion-button color="secondary" expand="block" (click)="add()">Ok</ion-button>
-
-  </ion-card>
 
   <ion-list-header>
     Lista de tarefas
@@ -36,7 +24,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let tarefa of tarefas">
 
-      <ion-item  href='/tarefadetail/{{tarefa.descricao}}'>
+      <ion-item href='/tarefadetail/{{tarefa.descricao}}'>
         <ion-label>
           {{tarefa.descricao}}
         </ion-label>

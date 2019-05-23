@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController,AlertController } from '@ionic/angular';
+import { ToastController,AlertController,ModalController } from '@ionic/angular';
 
 import { Storage } from '@ionic/storage';
+import { __await } from 'tslib';
+import { NovacompramodalPage } from '../novacompramodal/novacompramodal.page';
 
 
 @Component({
@@ -15,9 +17,8 @@ export class ListacomprasPage {
 
  COMPRAS_KEY = 'compras';
 
-  nova_compra = this.criar_nova_compra();
   constructor(public toastController: ToastController,public alertController: AlertController, 
-    private storage: Storage){ 
+    private storage: Storage, public modalController: ModalController){ 
       this.storage.get(this.COMPRAS_KEY).then((data) => 
       {
         if (data) {
@@ -26,11 +27,9 @@ export class ListacomprasPage {
       });
   }
 
-  async add() {
-    this.compras.push(this.nova_compra);
+  async add(compra) {
+    this.compras.push(compra);
     this.storage.set(this.COMPRAS_KEY, this.compras);
-
-    this.nova_compra = this.criar_nova_compra();
 
     const toast = await this.toastController.create({
       message: 'compra agendada com sucesso',
@@ -42,12 +41,7 @@ export class ListacomprasPage {
   }
 
 
-  criar_nova_compra() {
-    return {
-      "produto":"",
-      "valor":""
-    }
-   }
+  
    
 
 
@@ -90,13 +84,22 @@ export class ListacomprasPage {
   }
 
   edit(compra){    
-    // Atualizar formulário com os dados da tarefa cliclada
-    this.nova_compra = compra
 
     // Remover o item selecionado da lista
     var i = this.compras.indexOf(compra);
     this.compras.splice(i, 1);
     
+  }
+
+
+  async exibir_modal() {
+    const modal = await this.modalController.create({
+      component: NovacompramodalPage
+    });
+    modal.onDidDismiss().then((retorno) => {
+      this.add(retorno.data)
+    })
+    await modal.present();
   }
 
 

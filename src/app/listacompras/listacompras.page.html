@@ -3,30 +3,18 @@
     <ion-buttons slot="start">
       <ion-button href='/home'>inicio</ion-button>
     </ion-buttons>
+    
+    <ion-buttons slot="end">
+      <ion-button (click)='exibir_modal()'>
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Compras</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-        compras
-      </ion-card-title>
-    </ion-card-header>
 
-    <ion-item>
-      <ion-label>Produto: </ion-label>
-      <ion-input [(ngModel)]="nova_compra.produto"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Valor: </ion-label>
-      <ion-input [(ngModel)]="nova_compra.valor"></ion-input>
-    </ion-item>
-    <ion-button color="secondary" expand="block" (click)="add()">Ok</ion-button>
-
-  </ion-card>
 
   <ion-list-header>
     Lista de compras
